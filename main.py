@@ -1,5 +1,5 @@
 import banco
-from menu exibir_menu
+from menu import exibir_menu
 
 if __name__ == "__main__":
     banco.criar_tabela()
