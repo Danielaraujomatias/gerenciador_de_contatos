@@ -3,7 +3,8 @@ from contato import Contato
 import banco
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
+
 
 
 banco.criar_tabela()
