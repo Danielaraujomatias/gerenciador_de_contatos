@@ -3,7 +3,15 @@ from contato import Contato
 import banco
 
 
-app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
+import os
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, "../frontend/templates"),
+    static_folder=os.path.join(BASE_DIR, "../frontend/static")
+)
 
 
 
@@ -33,7 +41,7 @@ def criar_contato():
 
 
 @app.route("/api/contatos/<int:id>", methods=["PUT"])
-def atualizar_contato_api(id):
+def atualizar_contato(id):
     data = request.json
     contato = Contato(data["nome"], data.get("telefone", ""), data.get("email", ""))
     banco.atualizar_contato(id, contato)
@@ -43,6 +51,7 @@ def atualizar_contato_api(id):
 def deletar_contato(id):
     banco.remover_contato(id)
     return jsonify({"mensagem": "Contato removido com sucesso"})
+
 
 if __name__ == "__main__":
     app.run(debug=True)
